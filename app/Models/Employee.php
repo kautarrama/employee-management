@@ -9,7 +9,7 @@ class Employee extends Model
     protected $table            = 'tb_employees';
     protected $primaryKey       = 'employee_id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['name', 'position', 'salary'];
@@ -22,7 +22,11 @@ class Employee extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        // 'name' => 'trim|required',
+        // 'position' => 'trim|required',
+        // 'salary' => 'required|greater_than[0]' 
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
