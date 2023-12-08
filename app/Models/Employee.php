@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class Employee extends Model
 {
-    protected $table            = 'employees';
-    protected $primaryKey       = 'id';
+    protected $table            = 'tb_employees';
+    protected $primaryKey       = 'employee_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['name', 'position', 'salary'];
 
     // Dates
     protected $useTimestamps = false;
