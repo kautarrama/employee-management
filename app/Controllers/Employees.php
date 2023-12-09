@@ -103,7 +103,7 @@ class Employees extends BaseController
         }
 
         if ($this->model->delete($row->employee_id)) {
-            session()->setFlashdata('failed', ['type' => 'Failed', 'message' => 'Data berhasil dihapus']);
+            session()->setFlashdata('success', ['type' => 'Success', 'message' => 'Data berhasil dihapus']);
 
             return redirect()->to('/');
         }
