@@ -74,9 +74,10 @@
     </table>
   </div>
 
-  <div class="mt-4">
+  <div class="mt-4 ">
     <a href="<?= base_url("/new") ?>" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
-      <span class="iconify mr-2" data-icon="mdi-plus"></span>Create
+      <span class="iconify text-lg mr-2" data-icon="mdi-plus"></span>
+      <span>Create</span>
     </a>
   </div>
 
