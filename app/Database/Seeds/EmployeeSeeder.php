@@ -30,6 +30,7 @@ class EmployeeSeeder extends Seeder
         ];
 
         foreach ($data as $value) {
+            $employeeModel->skipValidation();
             $employeeModel->insert($value);
         }
     }
