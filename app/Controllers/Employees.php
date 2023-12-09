@@ -48,8 +48,10 @@ class Employees extends BaseController
         $row = $this->request->getPost();
 
         if ($this->model->insert($row) === false) {
-            return redirect()->to('/new')->withInput()->with('validation', $this->model->errors());
+            return redirect()->back()->withInput()->with('validation', $this->model->errors());
         } else {
+            session()->setFlashdata('success', ['type' => 'Success', 'message' => 'Data berhasil ditambah']);
+
             return redirect()->to('/');
         }
     }
@@ -60,6 +62,11 @@ class Employees extends BaseController
         $formMethod = "POST";
         $formAction = base_url("update/{$id}");
         $row = $this->model->find($id);
+
+        if (!$row) {
+            session()->setFlashdata('failed', ['type' => 'Failed', 'message' => 'Data tidak ditemukan']);
+            return redirect()->to('/');
+        }
 
         return view('/pages/employees/form', compact(
             'formTitle',
@@ -72,7 +79,8 @@ class Employees extends BaseController
     public function update($id = null)
     {
         if (!$row = $this->model->find($id)) {
-            return new Exception("Not found", 404);
+            session()->setFlashdata('failed', ['type' => 'Failed', 'message' => 'Data tidak ditemukan']);
+            return redirect()->back();
         }
 
         $data = new \App\Entities\Employee();
@@ -81,6 +89,8 @@ class Employees extends BaseController
         if ($this->model->update($row->employee_id, $data) === false) {
             return redirect()->back()->withInput()->with('validation', $this->model->errors());
         } else {
+            session()->setFlashdata('success', ['type' => 'Success', 'message' => 'Data berhasil diupdate']);
+
             return redirect()->to('/');
         }
     }
@@ -88,13 +98,14 @@ class Employees extends BaseController
     public function delete($id = null)
     {
         if (!$row = $this->model->find($id)) {
-            return new Exception("Not found", 404);
+            session()->setFlashdata('failed', ['type' => 'Failed', 'message' => 'Data tidak ditemukan']);
+            return redirect()->back();
         }
 
-        if ($this->model->delete($id)) {
+        if ($this->model->delete($row->employee_id)) {
+            session()->setFlashdata('failed', ['type' => 'Failed', 'message' => 'Data berhasil dihapus']);
+
             return redirect()->to('/');
         }
-
-        return new Exception('Bad Request', 500);
     }
 }
