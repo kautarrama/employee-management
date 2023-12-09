@@ -7,20 +7,29 @@
         <?php if ($row->employee_id) : ?>
             <input type="hidden" name="_method" value="put">
         <?php endif; ?>
-        
+
         <div class="mb-4">
             <label for="nama" class="block text-sm font-medium text-gray-600">Nama:</label>
             <input type="text" name="name" class="mt-1 p-2 w-full border rounded-md" placeholder="Masukkan nama karyawan" value="<?= $row->name ?>">
+            <?php if (!empty(session('validation')['name'])) : ?>
+                <p class="text-red-500 text-xs italic"><?= session('validation')['name'] ?></p>
+            <?php endif; ?>
         </div>
 
         <div class="mb-4">
             <label for="jabatan" class="block text-sm font-medium text-gray-600">Jabatan:</label>
             <input type="text" name="position" class="mt-1 p-2 w-full border rounded-md" placeholder="Masukkan jabatan karyawan" value="<?= $row->position ?>">
+            <?php if (!empty(session('validation')['position'])) : ?>
+                <p class="text-red-500 text-xs italic"><?= session('validation')['position'] ?></p>
+            <?php endif; ?>
         </div>
 
         <div class="mb-4">
             <label for="gaji" class="block text-sm font-medium text-gray-600">Gaji:</label>
             <input type="number" name="salary" class="mt-1 p-2 w-full border rounded-md" placeholder="Masukkan gaji karyawan" value="<?= $row->salary ?>">
+            <?php if (!empty(session('validation')['salary'])) : ?>
+                <p class="text-red-500 text-xs italic"><?= session('validation')['salary'] ?></p>
+            <?php endif; ?>
         </div>
 
         <div class="flex justify-end">

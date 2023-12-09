@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Entities\Employee as EntitiesEmployee;
 use App\Models\Employee;
-use CodeIgniter\Entity\Entity;
 use Exception;
 
 class Employees extends BaseController
@@ -14,6 +14,7 @@ class Employees extends BaseController
     {
         $this->model = new Employee();
         helper('number');
+        session();
     }
 
     public function index()
@@ -33,25 +34,24 @@ class Employees extends BaseController
         $formTitle = "Tambah Karyawan Baru";
         $formMethod = "POST";
         $formAction = base_url('create');
-        $row = new Entity();
+        $row = new \App\Entities\Employee();
         return view('/pages/employees/form', compact(
             'formTitle',
             'formMethod',
             'formAction',
-            'row'
+            'row',
         ));
     }
 
     public function create()
     {
-        // dd($this->request->getPost());
         $row = $this->request->getPost();
 
-        if ($this->model->insert($row)) {
+        if ($this->model->insert($row) === false) {
+            return redirect()->to('/new')->withInput()->with('validation', $this->model->errors());
+        } else {
             return redirect()->to('/');
         }
-
-        return new Exception("Bad Request", 500);
     }
 
     public function edit($id = null)
@@ -75,13 +75,14 @@ class Employees extends BaseController
             return new Exception("Not found", 404);
         }
 
-        $row = new Entity($this->request->getPost());
+        $data = new \App\Entities\Employee();
+        $data->fill($this->request->getPost());
 
-        if ($this->model->update($id, $row)) {
+        if ($this->model->update($row->employee_id, $data) === false) {
+            return redirect()->back()->withInput()->with('validation', $this->model->errors());
+        } else {
             return redirect()->to('/');
         }
-
-        return new Exception('Bad Request', 500);
     }
 
     public function delete($id = null)
