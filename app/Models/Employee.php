@@ -9,13 +9,13 @@ class Employee extends Model
     protected $table            = 'tb_employees';
     protected $primaryKey       = 'employee_id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
+    protected $returnType       = \App\Entities\Employee::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['name', 'position', 'salary'];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
@@ -23,9 +23,9 @@ class Employee extends Model
 
     // Validation
     protected $validationRules      = [
-        // 'name' => 'trim|required',
-        // 'position' => 'trim|required',
-        // 'salary' => 'required|greater_than[0]' 
+        'name' => 'trim|required',
+        'position' => 'trim|required',
+        'salary' => 'required|greater_than[0]' 
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
