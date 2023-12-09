@@ -25,9 +25,12 @@
                 <a href="<?= base_url("/edit/{$row->employee_id}") ?>" class="text-blue-500 hover:text-blue-700 mr-2">
                   <span class="iconify" data-icon="mdi-pencil"></span>
                 </a>
-                <a href="<?= base_url("delete/{$row->employee_id}") ?>" class="text-red-500 hover:text-red-700">
-                  <span class="iconify" data-icon="mdi-trash"></span>
-                </a>
+                <form action="<?= base_url("/delete/{$row->employee_id}") ?>" method="post">
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" onclick="return confirm('apakah anda yakin ?')" class="text-red-500 hover:text-red-700">
+                    <span class="iconify" data-icon="mdi-trash"></span>
+                  </button>
+                </form>
               </td>
             </tr>
           <?php endforeach; ?>
