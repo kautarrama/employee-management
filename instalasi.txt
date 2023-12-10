@@ -1,0 +1,12 @@
+Di rekomendasikan menggunakan php 8
+
+Instalasi :
+1. Buat database kosong dengan nama "employee_management"
+2. Atur file .env pada seksi database configuration
+3. Jalankan perintah "composer install"
+4. Jalankan perintah "npm install"
+5. Jalankan perintah "php spark migrate"
+6. Jalankan perintah "php spark db:seed EmployeeSeeder"
+
+Run :
+Jalankan perintah "php spark serve"
